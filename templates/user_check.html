@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TSKO</title>
+    <link rel="icon" href="{{url_for('static',filename='icon/IMG_20240622_073022.jpg')}}">
+    {%include 'link.html'%}
+    <style>
+        img{
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+    <nav class="navbar bg-primary py-3 sticky-top">
+        <div class="container ">
+            <div class="navbar-header">
+                <a href="{{url_for('home')}}" class="navbar-brand text-dark h3">TRADITIONAL SHOTOKAN KARATE DO ORGANIZATION</a>
+            </div>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-home"></i> HOME</a></li>
+                <li><a href="{{url_for('view_user')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-sign-out-alt"></i> GO BACK</a></li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<body>
+<div class="container">
+    <div class="offset-md-2 col-md-2" style="height: 100px;">
+        <form action="/cimage" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <img class="img img-default img-thumbnail" src="{{image}}"  style="height: 150px;width: 150px; margin-top: 80px;"><br>
+                <input type="text" name="name" value="{{data[0]['username']}}" style="display: none;">
+                <div class="form-group mt-5" style="font-size: 20px; ">
+                    <textarea readonly class="p-2 form-control" id="send">{{data[0]['address']}}</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="offset-md-5 col-md-5">
+        <form id="text" action="/edit" method="post">
+            <div class="form-group py-2">
+                <label>Name</label>
+                <input class="form-control" type="text" value="{{data[0]['name']}}" name="name" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Age</label>
+                <input class="form-control" type="text" value="{{data[0]['age']}}" name="age" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Gender</label>
+                <input class="form-control" type="text" value="{{data[0]['gender']}}" name="gender" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Date of birth</label>
+                <input class="form-control" type="text" value="{{data[0]['date_of_birth']}}" name="date_of_birth" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Branch</label>
+                <select name="branch" class="form-control" required autocomplete="off" aria-readonly="true">
+                    <option>{{data[0]['branch']}}</option>
+                    {% for data in branch %}
+                        <option>{{data['branch']}}</option>
+                    {% endfor%}
+                </select>
+            </div>
+            <div class="form-group py-2">
+                <label>Aadhar Number</label>
+                <input class="form-control" type="text" value="{{data[0]['aadhar']}}" name="aadhar" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Mobil</label>
+                <input class="form-control" type="text" value="{{data[0]['mobile']}}" name="mobile" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Email</label>
+                <input class="form-control" type="text" value="{{data[0]['email']}}" name="email" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <button type="submit" class="btn btn-primary" id="btn" style="margin-left: 85%; display:none;">Cheng</button>
+            </div>
+            <input type="text" name="uname" value="{{data[0]['username']}}" style="display: none;">
+            <input type="text" name="address" id="recive" style="display: none;">
+        </form>
+    </div>
+</div>
+</body>
+<footer style="margin-top: 75px; position:sticky;">
+    {% include 'footer.html' %}
+</footer>
+</html>
+<script>
+</script>

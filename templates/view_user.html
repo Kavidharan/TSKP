@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSKO</title>
+    <link rel="icon" href="{{url_for('static',filename='icon/IMG_20240622_073022.jpg')}}">
+    {%include 'link.html'%}
+    <nav class="navbar bg-primary py-3 sticky-top">
+        <div class="container ">
+            <div class="navbar-header">
+                <a href="{{url_for('home')}}" class="navbar-brand text-dark h3">TRADITIONAL SHOTOKAN KARATE DO ORGANIZATION</a>
+            </div>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}" class="text-dark px-2 text-decoration-none " ><i class="fa fa-home"></i> HOME</a></li>
+                <li><a href="{{url_for('login')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-users"></i> USER</a></li>
+                <li><a href="{{url_for('admin_login')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-user"></i> ADMIN</a></li>
+            </ul>
+        </div>
+    </nav>
+    <style>
+
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <div class="alert alert-{{category}}">{{message}}</div>
+            {%endfor%}
+        {%endif%}
+    {%endwith%} 
+    <div class="container mt-5">
+        <div class="container m-2 bg-info rounded">
+            <div class="p-2 row">
+                <h1 class="col col-md-8" style="margin-left: 20%;">USERS</h1>
+            </div>
+        </div>
+        <div>
+            <table class="table ">
+                <thead style="text-align: center;">
+                    <th class="p-3">s.no</th>
+                    <th class="p-3">Name</th>
+                    <th class="p-3">Age</th>
+                    <th class="p-3">Gender</th> 
+                    <th class="p-3">Date of Brith</th>
+                    <th class="p-3">Branch</th>
+                    <th class="p-3">Belt-level</th>
+                    <th class="p-3">Mobil</th>
+                    <th class="p-3">Check</th>
+                    <th class="p-3">Remove</th>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        {% set i=loop.index %}
+                        <tr style="text-align: center;">
+                            <td class="p-2">{{i}}</td>
+                            <td class="p-2">{{user['name']}}</td>
+                            <td class="p-2">{{user['age']}}</td>
+                            <td class="p-2">{{user['gender']}}</td>
+                            <td class="p-2">{{user['date_of_birth']}}</td>
+                            <td class="p-2">{{user['branch']}}</td>
+                            <td class="p-2">{{user['name']}}</td>
+                            <td class="p-2">{{user['mobile']}}</td>
+                            <td><a href="{{url_for('user_check',id=user['sno'])}}" class="btn btn-primary">Check</a></td>
+                            <td><a href="{{url_for('user_delete',id=user['sno'])}}" class="btn btn-danger">Remove</a></td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+    
+        </div>
+    </div>
+</body>
+<footer style="margin-top: 471px;">
+    {% include 'footer.html' %}
+</footer>
+</html>
+<script>
+    $(document).ready(function(){
+        $(".alert").hide(2000);
+    });
+</script>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TSKO</title>
+    <link rel="icon" href="{{url_for('static',filename='icon/IMG_20240622_073022.jpg')}}">
+    {%include 'link.html'%}
+    <style>
+        img{
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+    <nav class="navbar bg-primary py-3 sticky-top">
+        <div class="container ">
+            <div class="navbar-header">
+                <a href="{{url_for('home')}}" class="navbar-brand text-dark h3">TRADITIONAL SHOTOKAN KARATE DO ORGANIZATION</a>
+            </div>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-home"></i> HOME</a></li>
+                <li><a href="{{url_for('admin_login')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-sign-out-alt"></i> LOGOUT</a></li>
+                <li><a href="#" id="edit" class="text-dark px-2 text-decoration-none "><i class="fa fa-edit"></i> EDIT</a></li>
+                <li><a href="{{url_for('add_branch')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-add"></i> ADD BRANCH</a></li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<body>
+    <div class="row offset-md-10 col-md-2 mt-4">
+        <a href="{{url_for('view_user')}}" class="text-decoration-none text-dark h3 btn btn-success col mx-2"><i class="fa fa-users"></i> View users</a>
+    </div>
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <div class="alert alert-{{category}}">{{message}}</div>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}    
+    <div class="offset-md-2 col-md-2" style="height: 100px;">
+        <form action="/acimage" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <img class="img img-default img-thumbnail" src="{{image}}"  style="height: 150px;width: 150px; margin-top: 80px;"><br>
+                <input type="file" name="image" id="image" class="form-control mt-2 ms-4 btn" style="width: 100px;"><br>
+                <button type="submit" class="btn btn-primary mt-2" style="width: 150px;">Cheng image</button>
+                <input type="text" name="name" value="{{data[0]['username']}}" style="display: none;">
+                <div class="form-group mt-5" style="font-size: 20px; ">
+                    <textarea readonly class="p-2 form-control" id="send">{{data[0]['address']}}</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="offset-md-5 col-md-5">
+        <form id="text" action="/admin_edit" method="post">
+            <div class="form-group py-2">
+                <label>Name</label>
+                <input class="form-control" type="text" value="{{data[0]['name']}}" name="name" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Age</label>
+                <input class="form-control" type="text" value="{{data[0]['age']}}" name="age" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Gender</label>
+                <input class="form-control" type="text" value="{{data[0]['gender']}}" name="gender" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Date of birth</label>
+                <input class="form-control" type="text" value="{{data[0]['date_of_birth']}}" name="date_of_birth" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Aadhar Number</label>
+                <input class="form-control" type="text" value="{{data[0]['aadhar']}}" name="aadhar" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Mobil</label>
+                <input class="form-control" type="text" value="{{data[0]['mobile']}}" name="mobile" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <label>Email</label>
+                <input class="form-control" type="text" value="{{data[0]['email']}}" name="email" readonly required autocomplete="off">
+            </div>
+            <div class="form-group py-2">
+                <button type="submit" class="btn btn-primary" id="btn" style="margin-left: 85%; display:none;">Cheng</button>
+            </div>
+            <input type="text" name="uname" value="{{data[0]['username']}}" style="display: none;">
+            <input type="text" name="address" id="recive" style="display: none;">
+        </form>
+    </div>
+</div>
+
+</body>
+<footer style="margin-top: 75px; position:sticky;">
+    {% include 'footer.html' %}
+</footer>
+</html>
+<script>
+    $(document).ready(function(){
+        $("#edit").click(function(){
+            $("#text input").removeAttr("readonly");
+            $("#text button").css("display","block");
+            $("textarea").removeAttr("readonly");
+            $("#btn").click(function(){
+               var a=$("#send").val();
+               $("#recive").val(a);
+               console.log($("#recive").val())
+            });
+        });
+        $(".alert").hide(2000);
+        console.log($("img").val())
+    });
+</script>

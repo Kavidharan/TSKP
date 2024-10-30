@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSKO</title>
+    <link rel="icon" href="{{url_for('static',filename='icon/IMG_20240622_073022.jpg')}}">
+    {%include 'link.html'%}
+    <nav class="navbar bg-primary py-3 sticky-top">
+        <div class="container ">
+            <div class="navbar-header">
+                <a href="{{url_for('home')}}" class="navbar-brand text-dark h3">TRADITIONAL SHOTOKAN KARATE DO ORGANIZATION</a>
+            </div>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}" class="text-dark px-2 text-decoration-none " ><i class="fa fa-home"></i> HOME</a></li>
+                <li><a href="{{url_for('login')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-users"></i> USER</a></li>
+                <li><a href="{{url_for('admin_login')}}" class="text-dark px-2 text-decoration-none "><i class="fa fa-user"></i> ADMIN</a></li>
+            </ul>
+        </div>
+    </nav>
+</head>
+<body>
+    <div class="container mt-5 offset-md-4 col-md-4" style="border-color: black; border-radius: 5px; border-width: 1px; border-style: solid;">
+        <form action="/forget" method="post">
+            <div class="form-group py-2">
+                <label>User Name</label>
+                <input class="form-control" type="text" name="very_name" required autocomplete="off" placeholder="Enter The User Name">
+            </div>
+            <div class="form-group py-2" style="text-align: end;">
+                <button class="btn btn-success" type="submit">Next&rarr;</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+<footer style="margin-top: 471px;">
+    {% include 'footer.html' %}
+</footer>
+</html>
